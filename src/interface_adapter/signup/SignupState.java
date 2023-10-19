@@ -8,6 +8,9 @@ public class SignupState {
     private String repeatPassword = "";
     private String repeatPasswordError = null;
 
+    private String deletedUsers = "";
+    private String deleteUsersError = null;
+
     public SignupState(SignupState copy) {
         username = copy.username;
         usernameError = copy.usernameError;
@@ -15,6 +18,8 @@ public class SignupState {
         passwordError = copy.passwordError;
         repeatPassword = copy.repeatPassword;
         repeatPasswordError = copy.repeatPasswordError;
+        deletedUsers = copy.deletedUsers;
+        deleteUsersError = copy.deleteUsersError;
     }
 
     // Because of the previous copy constructor, the default constructor must be explicit.

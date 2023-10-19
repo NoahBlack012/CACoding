@@ -2,16 +2,15 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
+import use_case.clear_users.ClearUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, ClearUserDataAccessInterface {
 
     private final File csvFile;
 
@@ -96,4 +95,16 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         return accounts.containsKey(identifier);
     }
 
+
+    public Set<String> deleteAllUsers() {
+        Set<String> deletedUsersAlias = accounts.keySet();
+        Set<String> deletedUsersCopy = Set.copyOf(deletedUsersAlias);
+        // Clear all data from accounts
+        accounts.clear();
+        // Save new accounts data - Will save to be empty
+        this.save();
+
+        // Return deleted usernames
+        return deletedUsersCopy;
+    }
 }
